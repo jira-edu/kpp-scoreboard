@@ -22,8 +22,8 @@ bool num[14][23] = {
 
 bool period[10][35] = {
   // {1,1,1,1,1,1,7,1,1,1,1,1,1,14,1,1,1,1,1,1,21,1,1,1,1,1,1,28,1,1,1,1,1,1}
-  {0,0,1,1,1,0,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,0,1,1,1,0}, // 0
-  {0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0}, // 1
+  {0,0,1,1,1,0,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,0,1,1,1,0.0}, // 0
+  {0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0}, // 1
   {0,0,0,0,0,0,0,0,1,0,1,1,1,0,0,1,0,1,0,1,0,0,1,1,1,0,1,0,0,0,0,0,0,0,0}, // 2
   {0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,1,0,1,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0}, // 3
   {0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0}, // 4
@@ -63,38 +63,38 @@ void setup() {
 }
 
 void loop() {
- if (mySerial.available()) {
+  if (mySerial.available()) {
     bt=(mySerial.read());
     switch (bt) {
     case '1':
-    if(a_score<99){
-      a_score++;
-    }
+      if(a_score<99){
+        a_score++;
+      }
       break;
     case '0':
-    if(a_score>0){
-      a_score--;
-    }
+      if(a_score>0){
+        a_score--;
+      }
       break;
     case '2':
-    if(b_score<99){
-      b_score++;
-    }
+      if(b_score<99){
+        b_score++;
+      }
       break;
     case '3':
-     if(b_score>0){
-      b_score--;
-     }
+      if(b_score>0){
+        b_score--;
+      }
       break;
-        case '6':
-    if(c_score<9){
-      c_score++;
-    }
+    case '6':
+      if(c_score<9){
+        c_score++;
+      }
       break;
     case '5':
-     if(c_score>0){
-      c_score--;
-     }
+      if(c_score>0){
+        c_score--;
+      }
       break;
     case '4':
       a_score=0;
@@ -102,18 +102,18 @@ void loop() {
       break;
     case '7':
       if(min<94){
-      min+=5;
-    }
+        min+=5;
+      }
       break;
     case '8':
       if(min<89){
-      min+=10;
-    }
+        min+=10;
+      }
       break;
     case '9':
       if(min<69){
-      min+=30;
-    }
+        min+=30;
+      }
       break;
     case 'a':
       start=1;
@@ -163,20 +163,6 @@ void loop() {
     scorelib.display_number(7, num[x]);
     scorelib.display_number(8, num[y]);  
 
-     Serial.println(1);
-    // c_score_buff=c_score;
-    // x=0;
-    // y=0;
-    // if(c_score_buff<100){
-    //   while(c_score_buff>=10){
-    //     c_score_buff=c_score_buff-10;
-    //     x=x+1;
-    //   } 
-    //   while(c_score_buff>=1){
-    //     c_score_buff=c_score_buff-1;
-    //     y=y+1;
-    //   }
-    // }
   }
 
   
@@ -219,31 +205,30 @@ void loop() {
   scorelib.display_period(period[c_score]);
 
 
-if((start==1)&&(min==0)&&(sec==0)){
-  digitalWrite(6,1);
-  start=0;
-  delay(1000);
-}else{
-  digitalWrite(6,0);
+  if((start==1)&&(min==0)&&(sec==0)){
+    digitalWrite(6,1);
+    start=0;
+    delay(2000);
+  }else{
+    digitalWrite(6,0);
   }
 }
-void count()
-{
-if(counter<32768){
-  counter++;
-}else{
-  counter=0;
-  if(((min>0)||(sec>0))&&(start==1)){
-    if(sec>0){
-      sec-=1;
-    } else{
-      if(min>0){
-        min-=1;
-        sec=59;
+
+void count() {
+  if(counter<32768){
+    counter++;
+  }else{
+    counter=0;
+    if(((min>0)||(sec>0))&&(start==1)){
+      if(sec>0){
+        sec-=1;
+      } else{
+        if(min>0){
+          min-=1;
+          sec=59;
+        }
       }
     }
   }
-
-}
 }
 
